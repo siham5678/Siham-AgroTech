@@ -2,7 +2,7 @@
 
 A pilot-interest website for **Siham Agrotech**, a proposed Ethiopian agricultural technology company focused on machinery access, solar irrigation and operator training.
 
-**Live site:** https://siham5678.github.io/Siham-AgroTech
+**Live site:** https://siham5678.github.io/Siham-AgroTech/
 > **Status: proposed start-up, not yet operational.** This website collects pilot interest only. It takes no payments, lists no prices and does not book machines.
 
 ---
