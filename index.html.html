@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siham Agrotech – Machines, water and skills for every farm</title>
+<style>
+:root{--navy:#12263A;--navy2:#1D3A57;--sun:#F2A900;--water:#1B8A8F;--bg:#F2F5F8;--card:#fff;--ink:#14212e;--mut:#55677a;--line:#D5DEE7;--warn:#FFF1CC}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Noto Sans Ethiopic",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3{font-family:"Arial Black","Segoe UI",system-ui,sans-serif;letter-spacing:-.02em;line-height:1.1;margin:0 0 .5em}
+header{background:var(--navy);position:sticky;top:0;z-index:5}
+.bar{max-width:1080px;margin:auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font:900 20px "Arial Black",system-ui,sans-serif;margin-right:auto}
+.logo i{width:30px;height:30px;background:var(--sun);clip-path:polygon(0 38%,62% 38%,62% 8%,100% 50%,62% 92%,62% 62%,0 62%)}
+nav{display:flex;flex-wrap:wrap;gap:2px}
+nav a{color:#cfdbe8;padding:6px 11px;text-decoration:none;font-size:15px;border-bottom:3px solid transparent}
+nav a.on{color:#fff;border-color:var(--sun)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+select.lang{padding:5px;border-radius:6px;border:0}
+main{max-width:1080px;margin:auto;padding:0 16px 60px}
+.hero{background:var(--navy);color:#fff;margin:0 -16px;padding:48px 16px 56px;position:relative;overflow:hidden}
+.hero>div{max-width:1080px;margin:auto;position:relative}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:300px;height:300px;border-radius:50%;background:var(--sun);opacity:.92}
+.hero:before{content:"";position:absolute;right:30px;bottom:-30px;width:230px;height:70px;background:var(--water);border-radius:60px 0 0 60px;opacity:.9;z-index:1}
+.hero h1{font-size:clamp(34px,7vw,64px);max-width:640px;position:relative;z-index:2}
+.hero p{max-width:560px;color:#d5e1ee;position:relative;z-index:2}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;position:relative;z-index:2}
+.btn{display:inline-block;padding:13px 22px;border-radius:4px;background:var(--sun);color:#1a1300;font-weight:700;font-size:17px;border:0;cursor:pointer;text-decoration:none}
+.btn.alt{background:transparent;color:#fff;border:2px solid #fff}
+.btn.dk{background:var(--navy);color:#fff}
+.status{background:var(--warn);border-left:6px solid var(--sun);padding:12px 16px;margin:20px 0;border-radius:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:18px 0}
+.card{background:var(--card);border-top:5px solid var(--navy);padding:18px;border-radius:4px;box-shadow:0 1px 0 var(--line)}
+.card.s{border-color:var(--sun)}.card.w{border-color:var(--water)}
+a.card{color:inherit;text-decoration:none}
+.badge{display:inline-block;font-size:13px;font-weight:700;padding:2px 10px;border-radius:3px;background:#E4ECF4;color:var(--navy)}
+.badge.now{background:#D7F0E2;color:#0b5a33}.badge.soon{background:var(--warn);color:#6a4a00}
+section{padding-top:30px}
+label{display:block;font-weight:700;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #aebccb;border-radius:4px;font:inherit;background:#fff}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0 16px}
+.msg{white-space:pre-wrap;background:#fff;border:1px dashed var(--navy2);padding:14px;border-radius:4px;margin-top:14px}
+.tl{border-left:4px solid var(--sun);padding-left:16px;margin:16px 0}
+.tl div{margin-bottom:14px}
+footer{background:var(--navy);color:#b9c9d9;padding:22px 16px;text-align:center;font-size:14px}
+table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid var(--line);text-align:left}
+</style>
+</head>
+<body>
+<header><div class="bar">
+ <a class="logo" href="#home"><i></i>Siham Agrotech</a>
+ <nav id="nav"></nav>
+ <select class="lang" id="lang" aria-label="Language"><option value="en">English</option><option value="am">አማርኛ</option><option value="om" disabled>Afaan Oromo (soon)</option></select>
+</div></header>
+<main id="app"></main>
+<footer>Siham Agrotech is a proposed start-up and is not yet operational. This site collects pilot interest only. Prototype by Siham.</footer>
+
+<script>
+/* =====================================================================
+ SIHAM AGROTECH – Phase 1 website. Layers (same idea as MELA):
+ 1. CONFIG – the few things YOU change (contact number, MELA link)
+ 2. TEXT   – words on screen, so Amharic / Afaan Oromo can be added
+ 3. DATA   – services, training tracks, channels (from your proposal)
+ 4. LOGIC  – builds the request message (no server, no key, no cost)
+===================================================================== */
+
+/* ---------- 1. CONFIG ---------- */
+const CONFIG={
+ whatsapp:"",   // your number in international form, digits only, e.g. "2519XXXXXXXX". Empty = show copy-message instead
+ mela:"https://siham5678.github.io/Mela"  // replace with your real MELA address
+};
+
+/* ---------- 2. TEXT ---------- */
+const T={
+ en:{home:"Home",services:"Services",request:"Request",training:"Training",reach:"How to reach us",about:"About",
+  h:"Machines, water and skills for every farm.",
+  s:"Siham Agrotech is a proposed Ethiopian service for tractor work, solar irrigation and operator training, so farmers can use modern equipment without buying it.",
+  b1:"Join the pilot list",b2:"See our services"},
+ am:{home:"መነሻ",services:"አገልግሎቶች",request:"ጥያቄ",training:"ሥልጠና",reach:"እንዴት ያግኙን",about:"ስለ እኛ",
+  h:"ለእያንዳንዱ እርሻ ማሽን፣ ውሃና ክህሎት።",
+  s:"ሲሃም አግሮቴክ ገበሬዎች መሣሪያ ሳይገዙ ዘመናዊ ማሽነሪ እንዲጠቀሙ የታቀደ አገልግሎት ነው።",
+  b1:"የሙከራ ዝርዝር ይቀላቀሉ",b2:"አገልግሎቶችን ይመልከቱ"}
+};
+let lang="en";const t=k=>(T[lang]&&T[lang][k])||T.en[k];
+
+/* ---------- 3. DATA (from the proposal; no invented prices) ---------- */
+const SERVICES=[
+ {k:"op",ic:"🚜",n:"Machine + trained operator",d:"A certified operator brings the machine. You pay for the work done: plowing, harrowing, planting, harvesting or threshing.",c:""},
+ {k:"rent",ic:"🔑",n:"Equipment rental for certified farmers",d:"Complete the training and rent tractors and implements to run yourself, at a lower cost than full service.",c:"w"},
+ {k:"solar",ic:"☀️",n:"Solar irrigation",d:"Pump kits sold and installed, lease-to-own with a small down payment, or irrigation-as-a-service where Siham owns and maintains the system.",c:"s"},
+ {k:"train",ic:"🎓",n:"Training and certification",d:"Safe machine operation, basic repair and solar pump installation, with classroom teaching and practice in the field.",c:""}
+];
+const TRACKS=[
+ ["Basic operator course","Safe operation of tractors and towed implements (plows, disc harrows, planters). Needed before you can rent equipment."],
+ ["Advanced / combine operator","For higher-value machinery, offered to top graduates."],
+ ["Technician and maintenance","Basic mechanical maintenance and repair for the hub workshop."],
+ ["Solar irrigation installer","Installation, troubleshooting and after-sales service of solar pumps."]
+];
+const CHANNELS=[
+ ["Website (this page)","now"],["WhatsApp / Telegram message","now"],["Local agent in your area","soon"],
+ ["Phone call to a call center","soon"],["SMS booking","soon"],["USSD code","soon"],["Mobile app","soon"]
+];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const val=id=>document.getElementById(id).value.trim();
+
+/* ---------- PAGES ---------- */
+const pages={
+home:()=>`<div class="hero"><div><h1>${t("h")}</h1><p>${t("s")}</p>
+<div class="btns"><a class="btn" href="#request">${t("b1")}</a><a class="btn alt" href="#services">${t("b2")}</a></div></div></div>
+<div class="status"><b>Honest status:</b> Siham Agrotech is a planned company, currently in the proposal stage, with a one-hub pilot as the first step. Joining the list tells us where farmers need help. It does not book a machine yet.</div>
+<section><h2>What we plan to offer</h2><div class="grid">${SERVICES.map(s=>`<a class="card ${s.c}" href="#services"><div style="font-size:30px">${s.ic}</div><h3 style="font-size:19px">${s.n}</h3><p>${s.d}</p></a>`).join("")}</div></section>
+<section><h2>Why it is needed</h2><div class="card w"><p>Most Ethiopian smallholders cannot afford to buy a tractor, and farm work still depends mostly on oxen and hand tools. The proposal's research also found that only about a fifth of surveyed farmers irrigate, and many pump with costly diesel. Siham Agrotech aims to close that gap with shared machines, trained operators and solar pumps.</p>
+<p style="font-size:14px;color:var(--mut)">Figures come from the research cited in the business proposal.</p></div></section>
+<section><h2>Open to everyone</h2><p>Only about 15% of Ethiopians own a smartphone, so the plan includes local agents, calls, SMS and USSD as well as an app. See <a href="#reach">how to reach us</a>.</p></section>
+<section><div class="card s"><h3>Plan your season first</h3><p>MELA, our free farm helper, calculates profit and explains crop problems before you decide what services you need.</p><a class="btn dk" href="${CONFIG.mela}" target="_blank" rel="noopener">Open MELA</a></div></section>`,
+
+services:()=>`<section><h1>Services</h1><p>These are the planned services. Prices are not listed because they will be set after pilot surveys.</p>
+<div class="grid">${SERVICES.map(s=>`<div class="card ${s.c}"><div style="font-size:30px">${s.ic}</div><h3 style="font-size:19px">${s.n}</h3><p>${s.d}</p></div>`).join("")}</div>
+<div class="card"><h3 style="font-size:19px">Machinery planned for the pilot</h3><p>Mid-size tractors with plow, disc harrow and planter attachments, plus threshers. Combine harvesting in the first years would be arranged through partner owners, not bought by Siham.</p></div>
+<div class="status">Market price information is not shown here because we have no confirmed local price list for our own services yet.</div>
+<div class="btns"><a class="btn dk" href="#request">Join the pilot list</a></div></section>`,
+
+request:()=>`<section><h1>Join the pilot list</h1><p>Tell us what you need. We use this to choose where the first hub should be. No payment is taken.</p>
+<form onsubmit="return false"><div class="two">
+<div><label for="nm">Your name</label><input id="nm"></div>
+<div><label for="ph">Phone number</label><input id="ph" type="tel"></div>
+<div><label for="loc">Village, kebele, woreda</label><input id="loc"></div>
+<div><label for="sv">Service you need</label><select id="sv">${SERVICES.map(s=>`<option>${s.n}</option>`).join("")}</select></div>
+<div><label for="cr">Crop</label><select id="cr"><option>Maize</option><option>Tomato</option><option>Potato</option><option>Other</option></select></div>
+<div><label for="ha">Land size (hectares)</label><input id="ha" type="number" min="0" step="any"></div>
+<div><label for="dt">Season or month you need it</label><input id="dt" placeholder="e.g. planting in June"></div>
+<div><label for="wt">Water source (river, well, none)</label><input id="wt"></div></div>
+<label for="nt">Notes</label><textarea id="nt" rows="2"></textarea>
+<div class="btns"><button class="btn dk" onclick="mkMsg()">Prepare my message</button></div></form>
+<div id="out" aria-live="polite"></div></section>`,
+
+training:()=>`<section><h1>Training and certification</h1><p>Training is central to the plan: farmers and rural youth learn to operate and maintain equipment, and graduates can rent machines or work as operators.</p>
+<div class="grid">${TRACKS.map(x=>`<div class="card"><h3 style="font-size:19px">${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div>
+<div class="status">Course lengths, lessons and partner colleges are not decided yet. They will be set with local training institutions during the pilot.</div>
+<div class="btns"><a class="btn dk" href="#request">Register interest</a></div></section>`,
+
+reach:()=>`<section><h1>How to reach us</h1><p>Most farmers do not have a smartphone, so the plan uses many ways to book. Only some are available today.</p>
+<div class="card"><table>${CHANNELS.map(c=>`<tr><td>${c[0]}</td><td style="text-align:right"><span class="badge ${c[1]}">${c[1]=="now"?"Available now":"Planned"}</span></td></tr>`).join("")}</table></div></section>`,
+
+about:()=>`<section><h1>About Siham Agrotech</h1>
+<p>Siham Agrotech is a proposed Ethiopian agricultural technology company. Its aim is to help farmers use machinery and solar irrigation without buying expensive equipment, and to train rural youth to operate and maintain it.</p>
+<p>The business proposal is a researched plan, not an operating business. It names competitors such as Lersha and Hello Tractor, and explains where Siham Agrotech would focus: owned machinery with trained operators, a certification program and solar irrigation.</p>
+<h2 style="margin-top:24px">Roadmap</h2><div class="tl"><div><b>Now</b><br>Proposal, pilot interest list and this website.</div><div><b>Year 1 (plan)</b><br>One-hub pilot with a starter fleet, trainers and local agents.</div><div><b>Later</b><br>Booking by SMS, USSD and app, more hubs, and AI crop tools such as MELA connected to the platform.</div></div>
+<div class="status">Costs, dates and projections in the proposal are planning assumptions unless marked as sourced. This website does not promise any service or price.</div>
+<p>Built as a learning project by Siham, with an AI assistant helping to write the code.</p></section>`
+};
+
+/* ---------- 4. LOGIC ---------- */
+function mkMsg(){
+ const f={Name:val("nm"),Phone:val("ph"),Location:val("loc"),Service:val("sv"),Crop:val("cr"),"Land (ha)":val("ha"),When:val("dt"),Water:val("wt"),Notes:val("nt")};
+ if(!f.Name||!f.Phone||!f.Location){document.getElementById("out").innerHTML='<div class="status">Please fill in your name, phone number and location.</div>';return;}
+ const text="Siham Agrotech pilot interest\n"+Object.entries(f).filter(x=>x[1]).map(x=>x[0]+": "+x[1]).join("\n");
+ const link=CONFIG.whatsapp?`<a class="btn dk" target="_blank" rel="noopener" href="https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}">Send on WhatsApp</a>`:`<div class="status">No contact number is set yet. Copy this message and send it to the Siham Agrotech contact.</div>`;
+ document.getElementById("out").innerHTML=`<div class="msg" id="m">${esc(text)}</div><div class="btns">${link}<button class="btn" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('m').innerText)">Copy message</button></div>`;
+}
+
+/* ---------- ROUTER ---------- */
+const order=["home","services","request","training","reach","about"];
+function render(){
+ const p=order.includes(location.hash.slice(1))?location.hash.slice(1):"home";
+ document.getElementById("nav").innerHTML=order.map(k=>`<a href="#${k}" class="${k===p?"on":""}">${t(k)}</a>`).join("");
+ document.getElementById("app").innerHTML=pages[p]();window.scrollTo(0,0);
+}
+document.getElementById("lang").onchange=e=>{lang=e.target.value;render();};
+addEventListener("hashchange",render);render();
+</script>
+</body>
+</html>
