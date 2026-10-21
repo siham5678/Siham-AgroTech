@@ -1,4 +1,4 @@
-# Siham-AgroTech# Siham Agrotech
+# Siham-AgroTech
 
 A pilot-interest website for **Siham Agrotech**, a proposed Ethiopian agricultural technology company focused on machinery access, solar irrigation and operator training.
 
