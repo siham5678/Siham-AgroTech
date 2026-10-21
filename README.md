@@ -25,7 +25,7 @@ Siham Agrotech is planned as a **service company**, not an equipment shop:
 ## What this website does
 
 - Explains the planned services and training tracks
-- Lets a farmer prepare a **pilot-interest message** and send it by WhatsApp (or copy it)
+- Lets a farmer prepare a **pilot-interest message** and send it by WhatsApp 
 - Shows which contact channels are available now and which are only planned
 - Links to **MELA**, the free farm decision helper
 
